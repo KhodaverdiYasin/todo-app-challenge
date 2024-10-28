@@ -1,0 +1,114 @@
+# Built application files
+*.apk
+*.app
+*.exe
+*.ipa
+*.dll
+*.dylib
+*.so
+*.winmd
+bin/
+obj/
+out/
+publish/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+/packages/
+*.nuget.props
+*.nuget.g.targets
+*.nuget.targets
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio .vs folder
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+*.userprefs
+*.dotcover
+*.mdf
+*.ldf
+*.ndf
+
+# Tooling
+_ReSharper*/
+_TestResults/
+*.VisualState.xml
+TestResult.xml
+*.cache
+ClientBin/
+~$*
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Others
+packages.config
+App_Data/
+*.cer
+*.pfx
+*.pubxml
+*.pubxml.user
+*.log
+*.ascx
+*.csproj.user
+*.svclog
+*.trx
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Environment and secret files
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+appsettings.*.json
+secret.*
+secrets.json
+secrets.*
+
+# Exclude configuration files that may contain sensitive information
+*.config
+
+# Exclude database files that should not be included in version control
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Exclude miscellaneous files/folders
+node_modules/
+wwwroot/
+backup*/
+uploads/
+export/
