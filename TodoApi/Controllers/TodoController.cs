@@ -64,6 +64,29 @@ namespace TodoApi.Controllers
             }
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchTodoItem(int id, TodoItem item)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                await _todoService.PatchTodoAsync(id, item);
+                return NoContent();
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, "A concurrency error occurred.");
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTodoItem(int id)
         {

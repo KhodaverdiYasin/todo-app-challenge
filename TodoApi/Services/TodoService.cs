@@ -58,6 +58,26 @@ namespace TodoApi.Services
             }
         }
 
+        public async Task PatchTodoAsync(int id, TodoItem item)
+        {
+            var todoItem = await _context.TodoItems.FindAsync(id);
+            if (todoItem == null)
+            {
+                throw new KeyNotFoundException($"No todo item found with ID {id}.");
+            }
+
+            todoItem.Name = item.Name;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+        }
+
         public async Task DeleteTodoAsync(int id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
