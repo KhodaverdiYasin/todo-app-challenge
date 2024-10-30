@@ -1,6 +1,6 @@
 # Todo App - Fullstack Setup Documentation 📋
 
-This project contains a **frontend built with React** and a **backend using ASP.NET Core** with **PostgreSQL** as the database.
+This project contains a **frontend built with React** and a **backend using ASP.NET Core** with **PostgreSQL** as the database. It also includes an **in-memory provider** implemented using the **factory pattern** for flexibility in provider selection.
 
 ---
 
@@ -9,7 +9,7 @@ This project contains a **frontend built with React** and a **backend using ASP.
 Make sure you have the following installed on your machine:
 
 - Node.js (v14 or higher)  
-- .NET Core SDK (v6.0 or higher)  
+- .NET Core SDK (v8.0 or higher)  
 - Docker (for PostgreSQL setup)  
 - Git (for cloning the repository)
 
@@ -123,6 +123,63 @@ You should see `todo-postgres` in the list of running containers.
 ```bash
 docker exec -it todo-postgres psql -U postgres
 ```
+
+---
+
+## In-Memory Provider
+
+This project includes an **in-memory provider** implemented on the **frontend**. The in-memory provider stores todos **temporarily in memory**, meaning the data will be lost when the browser is refreshed.
+
+### How to Use the In-Memory Provider
+
+1. Start the frontend using:
+
+```bash
+npm start
+```
+
+2. Select **In-Memory Provider** from the dropdown.
+3. Add, update, or delete todos as needed.
+4. Switch between different providers (API, Local Storage, In-Memory) using the dropdown.
+
+#### Important Note:
+The **in-memory provider instance** is **cached** to ensure that todos persist even when you switch to other providers and come back. We used the following line to cache the instance:
+
+```typescript
+let inMemoryProvider: InMemoryProvider | null = null;
+```
+
+This ensures the **same instance is reused**, and todos remain intact unless the page is reloaded.
+
+---
+
+## Factory Pattern Usage
+
+We implemented the **factory pattern** to dynamically create and return different providers (API, Local Storage, In-Memory) based on user selection.
+
+```typescript
+export function getTodoProvider(providerType: string): ITodoProvider {
+    switch (providerType) {
+        case 'api':
+            return new ApiProvider(); 
+        case 'local':
+            return new LocalStorageProvider();
+        case 'memory':
+            if (!inMemoryProvider) {
+                inMemoryProvider = new InMemoryProvider(); // Cache the instance
+            }
+            return inMemoryProvider;
+        default:
+            throw new Error('Invalid provider type');
+    }
+}
+```
+
+### How the Factory Pattern Works:
+1. The factory encapsulates the **creation logic** for different providers.
+2. It provides a **unified interface** (`ITodoProvider`) to the frontend.
+3. **Runtime flexibility:** The appropriate provider is selected dynamically based on user input.
+4. **Reusability:** You can easily add more providers (like a SQLite provider) without changing the main application logic.
 
 ---
 
