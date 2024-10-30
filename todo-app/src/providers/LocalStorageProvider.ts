@@ -1,6 +1,5 @@
-// src/providers/LocalStorageProvider.ts
-import { ITodoProvider } from './ITodoProvider';
 import { TodoItem } from '../types';
+import { ITodoProvider } from './ITodoProvider';
 
 const STORAGE_KEY = 'todos';
 

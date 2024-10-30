@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TodoItem } from './types';
-import { TodoItem as TodoItemComponent } from './components/TodoItem';
 import TodoModal from './components/TodoModal';
-import { getTodoProvider } from './providers/TodoProviderFactory';
 import { useDebounce } from './hooks/useDebounce';
+import { getTodoProvider } from './providers/TodoProviderFactory';
+import { TodoItem as TodoItemComponent } from './components/TodoItem';
 
 const App: React.FC = () => {
     const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -12,7 +12,7 @@ const App: React.FC = () => {
     const [providerType, setProviderType] = useState('api');
     const [editingTodo, setEditingTodo] = useState<TodoItem | null>(null);
     const [newTitle, setNewTitle] = useState('');
-    const [error, setError] = useState<string | null>(null); // For validation message
+    const [error, setError] = useState<string | null>(null);
     const todoProvider = getTodoProvider(providerType);
     const debouncedSearchTerm = useDebounce(search, 500);
 
@@ -25,13 +25,13 @@ const App: React.FC = () => {
 
     const handleAdd = async () => {
         if (input.trim() === '') {
-            setError('Todo cannot be empty'); // Set error if input is blank
+            setError('Todo cannot be empty');
             return;
         }
         const newTodo = await todoProvider.addTodo(input);
         setTodos([...todos, newTodo]);
         setInput('');
-        setError(null); // Clear error on successful add
+        setError(null);
     };
 
     const handleUpdate = async (id: number) => {
@@ -81,6 +81,7 @@ const App: React.FC = () => {
                     >
                         <option value="api">API Provider</option>
                         <option value="local">Local Storage Provider</option>
+                        <option value="memory">In-Memory Provider</option>
                     </select>
 
                     <div className="input-group mb-2">
